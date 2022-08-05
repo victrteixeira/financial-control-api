@@ -21,13 +21,13 @@ public class DespesaService : IDespesaService
     public async Task<DespesasDTO> CreateAsync(DespesasDTO despesasDto)
     {
         var despesaExist = await _despesasRepository.SearchByDescricao(despesasDto.Descricao);
-        if (despesaExist[0].Data.Month == despesasDto.Data.Month)
+        if (despesaExist != default)
             throw new DomainException("Não é possível adicionar duas despesas iguais no mesmo mês.");
 
         var despesa = _mapper.Map<Despesas>(despesasDto);
         despesa.Validate();
 
-        var despesaCreated = _despesasRepository.Create(despesa);
+        var despesaCreated = await _despesasRepository.Create(despesa);
         return _mapper.Map<DespesasDTO>(despesaCreated);
     }
 

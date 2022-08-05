@@ -1,0 +1,11 @@
+global using Xunit;
+global using AutoMapper;
+global using Challenge.Domain;
+global using Challenge.Infrastructure.Interfaces;
+global using Challenge.Services.DTO;
+global using Challenge.Services.Interfaces;
+global using Challenge.Services.Services;
+global using Challenge.Tests.Configuration;
+global using Challenge.Tests.Fixtures;
+global using FluentAssertions;
+global using Moq;

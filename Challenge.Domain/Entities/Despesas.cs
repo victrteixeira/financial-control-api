@@ -5,15 +5,16 @@ namespace Challenge.Domain;
 
 public class Despesas : BaseEntity
 {
-    public Despesas() // EF Constructor
+    protected Despesas() // EF Constructor
     {
     }
-
     public Despesas(string descricao, double valor, DateTime data)
     {
         Descricao = descricao;
         Valor = valor;
         Data = data;
+        _errors = new List<string>();
+        Validate();
     }
     
     public void SetDescricao(string descricao)
