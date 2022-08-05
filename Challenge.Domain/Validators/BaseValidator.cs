@@ -17,7 +17,7 @@ public class BaseEntityValidator : AbstractValidator<BaseEntity>
             .WithMessage("A {PropertyName} da despesa não pode estar vazia.")
             .NotNull()
             .WithMessage("A {PropertyName} da despesa não pode ser nula.")
-            .MinimumLength(5)
+            .MinimumLength(3)
             .WithMessage("A {PropertyName} da despesa precisa ter no mínimo 5 caracteres.")
             .MaximumLength(100)
             .WithMessage("A {PropertyName} da despesa precisa ter no máximo 100 caracteres.");

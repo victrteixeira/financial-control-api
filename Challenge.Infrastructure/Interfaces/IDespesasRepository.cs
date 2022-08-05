@@ -5,6 +5,6 @@ namespace Challenge.Infrastructure.Interfaces;
 public interface IDespesasRepository : IBaseRepository<Despesas>
 {
     Task<List<Despesas>> SearchByDescricao(string descricao);
-    Task<Despesas> GetByValor(double valor);
-    Task<Despesas> GetByData(DateTime data);
+    Task<List<Despesas>> SearchByValor(double valor);
+    Task<List<Despesas>> SearchByMes(int mes);
 }

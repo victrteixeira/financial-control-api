@@ -25,23 +25,23 @@ public class DespesasRepository : BaseRepository<Despesas>, IDespesasRepository
         return allDespesas;
     }
 
-    public async Task<Despesas> GetByValor(double valor)
+    public async Task<List<Despesas>> SearchByValor(double valor)
     {
         var resultValor = await _context.TDespesas
             .AsNoTracking()
             .Where(v => v.Valor == valor)
             .ToListAsync();
 
-        return resultValor.FirstOrDefault();
+        return resultValor;
     }
 
-    public async Task<Despesas> GetByData(DateTime data)
+    public async Task<List<Despesas>> SearchByMes(int value)
     {
         var resultData = await _context.TDespesas
             .AsNoTracking()
-            .Where(d => d.Data == data)
+            .Where(x => x.Data.Month == value)
             .ToListAsync();
 
-        return resultData.FirstOrDefault();
+        return resultData;
     }
 }

@@ -49,7 +49,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return t.FirstOrDefault();
     }
 
-    public Task<List<T>> GetAll(long id)
+    public Task<List<T>> GetAll()
     {
         return _context.Set<T>()
             .AsNoTracking()
