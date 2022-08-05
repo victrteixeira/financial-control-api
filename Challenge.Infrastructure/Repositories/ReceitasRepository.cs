@@ -25,23 +25,23 @@ public class ReceitasRepository : BaseRepository<Receitas>, IReceitasRepository
         return allReceitas;
     }
 
-    public async Task<Receitas> GetByValor(double valor)
+    public async Task<List<Receitas>> SearchByValor(double valor)
     {
         var resultValor = await _context.TReceitas
             .AsNoTracking()
             .Where(v => v.Valor == valor)
             .ToListAsync();
 
-        return resultValor.FirstOrDefault();
+        return resultValor;
     }
 
-    public async Task<Receitas> GetByData(DateTime data)
+    public async Task<List<Receitas>> SearchByDataMes(int mes)
     {
         var resultData = await _context.TReceitas
             .AsNoTracking()
-            .Where(d => d.Data == data)
+            .Where(d => d.Data.Month == mes)
             .ToListAsync();
 
-        return resultData.FirstOrDefault();
+        return resultData;
     }
 }

@@ -35,11 +35,11 @@ public class DespesasRepository : BaseRepository<Despesas>, IDespesasRepository
         return resultValor;
     }
 
-    public async Task<List<Despesas>> SearchByMes(int value)
+    public async Task<List<Despesas>> SearchByMes(int mes)
     {
         var resultData = await _context.TDespesas
             .AsNoTracking()
-            .Where(x => x.Data.Month == value)
+            .Where(x => x.Data.Month == mes)
             .ToListAsync();
 
         return resultData;
