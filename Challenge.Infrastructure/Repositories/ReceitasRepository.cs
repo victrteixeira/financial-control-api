@@ -35,7 +35,7 @@ public class ReceitasRepository : BaseRepository<Receitas>, IReceitasRepository
         return resultValor;
     }
 
-    public async Task<List<Receitas>> SearchByDataMes(int mes)
+    public async Task<List<Receitas>> SearchByMes(int mes)
     {
         var resultData = await _context.TReceitas
             .AsNoTracking()

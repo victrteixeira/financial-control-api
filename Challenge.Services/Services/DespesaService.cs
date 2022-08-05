@@ -11,7 +11,6 @@ public class DespesaService : IDespesaService
 {
     private readonly IDespesasRepository _despesasRepository;
     private readonly IMapper _mapper;
-
     public DespesaService(IDespesasRepository despesasRepository, IMapper mapper)
     {
         _despesasRepository = despesasRepository;
@@ -21,8 +20,9 @@ public class DespesaService : IDespesaService
     public async Task<DespesasDTO> CreateAsync(DespesasDTO despesasDto)
     {
         var despesaExist = await _despesasRepository.SearchByDescricao(despesasDto.Descricao);
-        if (despesaExist != default)
-            throw new DomainException("Não é possível adicionar duas despesas iguais no mesmo mês.");
+        // TODO > Test this new verification
+        if (despesaExist != default && despesaExist[0].Data.Month == despesasDto.Data.Month)
+            throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
 
         var despesa = _mapper.Map<Despesas>(despesasDto);
         despesa.Validate();
@@ -33,9 +33,13 @@ public class DespesaService : IDespesaService
 
     public async Task<DespesasDTO> UpdateAsync(DespesasDTO despesasDto)
     {
-        var oldDespesa = await _despesasRepository.Get(despesasDto.Id);
-        if (oldDespesa is null)
-            throw new ServiceException("Despesa não encontrada");
+        var despesaExist = await _despesasRepository.Get(despesasDto.Id);
+        if (despesaExist is null)
+            throw new ServiceException("Despesa não encontrada!");
+
+        var despesaRepeated = await _despesasRepository.SearchByDescricao(despesasDto.Descricao);
+        if (despesaRepeated[0].Data.Month == despesasDto.Data.Month)
+            throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
 
         Despesas despesas = _mapper.Map<Despesas>(despesasDto);
         despesas.Validate();
@@ -49,7 +53,7 @@ public class DespesaService : IDespesaService
         var despesa = _despesasRepository.Get(id);
         if (despesa is null)
             throw new ServiceException(
-                "Nenhum usuário encontrado para remoção");
+                "Nenhuma despesa encontrada para remoção");
         
         await _despesasRepository.Remove(id);
     }
@@ -81,7 +85,7 @@ public class DespesaService : IDespesaService
         return _mapper.Map<List<DespesasDTO>>(allDespesas);
     }
 
-    public async Task<List<DespesasDTO>> SearchByMonthAsync(int value)
+    public async Task<List<DespesasDTO>> SearchByMesAsync(int value)
     {
         if (value > 12)
             throw new ServiceException("Para buscar por um mês é necessário inserir um valor entre 1 e 12");
