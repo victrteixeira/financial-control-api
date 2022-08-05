@@ -7,8 +7,9 @@ public class ReceitasDTO
     public double Valor { get; set; }
     public DateTime Data { get; set; }
 
-    public ReceitasDTO(string descricao, double valor, DateTime data)
+    public ReceitasDTO(long id, string descricao, double valor, DateTime data)
     {
+        Id = id;
         Descricao = descricao;
         Valor = valor;
         Data = data;
