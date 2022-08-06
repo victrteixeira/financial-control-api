@@ -14,7 +14,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         _context = context;
     }
 
-    public async Task<T> Create(T obj)
+    public virtual async Task<T> Create(T obj)
     {
         _context.Add(obj);
         await _context.SaveChangesAsync();
@@ -22,7 +22,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return obj;
     }
 
-    public async Task<T> Update(T obj)
+    public virtual async Task<T> Update(T obj)
     {
         _context.Entry(obj).State = EntityState.Modified;
         await _context.SaveChangesAsync();
@@ -30,7 +30,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return obj;
     }
 
-    public async Task Remove(long id)
+    public virtual async Task Remove(long id)
     {
         var t = await Get(id);
         if (t != null)
@@ -39,7 +39,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         await _context.SaveChangesAsync();
     }
 
-    public async Task<T> Get(long id)
+    public virtual async Task<T> Get(long id)
     {
         var t = await _context.Set<T>()
             .AsNoTracking()
@@ -49,7 +49,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return t.FirstOrDefault();
     }
 
-    public Task<List<T>> GetAll()
+    public virtual Task<List<T>> GetAll()
     {
         return _context.Set<T>()
             .AsNoTracking()

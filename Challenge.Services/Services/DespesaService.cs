@@ -19,9 +19,13 @@ public class DespesaService : IDespesaService
 
     public async Task<DespesasDTO> CreateAsync(DespesasDTO despesasDto)
     {
-        var despesaExist = await _despesasRepository.SearchByDescricao(despesasDto.Descricao);
-        if (despesaExist != default && despesaExist[0].Data.Month == despesasDto.Data.Month)
-            throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
+        var entityWithSameDescricao = await _despesasRepository.GetByDescricao(despesasDto.Descricao);
+        if (entityWithSameDescricao != default)
+        {
+            var entityWithSameMes = await _despesasRepository.GetByMes(despesasDto.Data.Month);
+            if(entityWithSameMes != default)
+                throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
+        }
 
         var despesa = _mapper.Map<Despesas>(despesasDto);
         despesa.Validate();

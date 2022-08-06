@@ -13,13 +13,31 @@ public class DespesasRepository : BaseRepository<Despesas>, IDespesasRepository
         _context = context;
     }
 
+    public async Task<Despesas> GetByMes(int mes)
+    {
+        var despesa = await _context.TDespesas
+            .AsNoTracking()
+            .Where(d => d.Data.Month == mes)
+            .FirstOrDefaultAsync();
+
+        return despesa;
+    }
+
+    public async Task<Despesas> GetByDescricao(string descricao)
+    {
+        var despesa = await _context.TDespesas
+            .AsNoTracking().Where(d => d.Descricao.ToLower().Contains(descricao.ToLower()))
+            .FirstOrDefaultAsync();
+
+        return despesa;
+    }
+
     public async Task<List<Despesas>> SearchByDescricao(string descricao)
     {
         var allDespesas = await _context.TDespesas
             .AsNoTracking()
-            .Where(d => d.Descricao
-                .Trim().ToLower()
-                .Contains(descricao.Trim().ToLower()))
+            .Where(d => d.Descricao.ToLower()
+                .Contains(descricao.ToLower()))
             .ToListAsync();
 
         return allDespesas;
