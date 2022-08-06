@@ -20,7 +20,6 @@ public class DespesaService : IDespesaService
     public async Task<DespesasDTO> CreateAsync(DespesasDTO despesasDto)
     {
         var despesaExist = await _despesasRepository.SearchByDescricao(despesasDto.Descricao);
-        // TODO > Test this new verification
         if (despesaExist != default && despesaExist[0].Data.Month == despesasDto.Data.Month)
             throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
 
@@ -31,6 +30,7 @@ public class DespesaService : IDespesaService
         return _mapper.Map<DespesasDTO>(despesaCreated);
     }
 
+    // TODO > Complete the tests to this service.
     public async Task<DespesasDTO> UpdateAsync(DespesasDTO despesasDto)
     {
         var despesaExist = await _despesasRepository.Get(despesasDto.Id);
@@ -38,7 +38,7 @@ public class DespesaService : IDespesaService
             throw new ServiceException("Despesa não encontrada!");
 
         var despesaRepeated = await _despesasRepository.SearchByDescricao(despesasDto.Descricao);
-        if (despesaRepeated[0].Data.Month == despesasDto.Data.Month)
+        if (despesaRepeated != default && despesaRepeated[0].Data.Month == despesasDto.Data.Month)
             throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
 
         Despesas despesas = _mapper.Map<Despesas>(despesasDto);
