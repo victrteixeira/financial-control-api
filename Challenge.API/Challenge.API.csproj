@@ -16,8 +16,4 @@
       <ProjectReference Include="..\Challenge.Services\Challenge.Services.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers" />
-    </ItemGroup>
-
 </Project>

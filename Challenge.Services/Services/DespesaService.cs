@@ -19,11 +19,11 @@ public class DespesaService : IDespesaService
 
     public async Task<DespesasDTO> CreateAsync(DespesasDTO despesasDto)
     {
-        var entityWithSameDescricao = await _despesasRepository.GetByDescricao(despesasDto.Descricao);
-        if (entityWithSameDescricao != default)
+        var entityDesc = await _despesasRepository.GetByDescricao(despesasDto.Descricao);
+        if (entityDesc != default)
         {
-            var entityWithSameMes = await _despesasRepository.GetByMes(despesasDto.Data.Month);
-            if(entityWithSameMes != default)
+            var entityMes = await _despesasRepository.GetByMes(despesasDto.Data.Month);
+            if(entityMes != default)
                 throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
         }
 
@@ -37,18 +37,23 @@ public class DespesaService : IDespesaService
     // TODO > Complete the tests to this service.
     public async Task<DespesasDTO> UpdateAsync(DespesasDTO despesasDto)
     {
-        var despesaExist = await _despesasRepository.Get(despesasDto.Id);
-        if (despesaExist is null)
+        var oldDespesa = await _despesasRepository.Get(despesasDto.Id);
+        if (oldDespesa == null)
             throw new ServiceException("Despesa não encontrada!");
 
-        var despesaRepeated = await _despesasRepository.SearchByDescricao(despesasDto.Descricao);
-        if (despesaRepeated != default && despesaRepeated[0].Data.Month == despesasDto.Data.Month)
-            throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
+        var entityDesc = await _despesasRepository.GetByDescricao(despesasDto.Descricao);
+        if (entityDesc != default)
+        {
+            var entityMes = await _despesasRepository.GetByMes(despesasDto.Data.Month);
+            if (entityMes != default)
+                throw new DomainException("Não é possível existir duas despesas iguais no mesmo mês.");
+        }
+        
 
         Despesas despesas = _mapper.Map<Despesas>(despesasDto);
         despesas.Validate();
 
-        await _despesasRepository.Update(despesas);
+        var despesaUpdated = await _despesasRepository.Update(despesas);
         return _mapper.Map<DespesasDTO>(despesas);
     }
 

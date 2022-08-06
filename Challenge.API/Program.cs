@@ -1,11 +1,53 @@
-using Challenge.Domain;
+using AutoMapper;
+using Challenge.API.AutoMapperMaps;
+using Challenge.Infrastructure.Context;
+using Challenge.Infrastructure.Interfaces;
+using Challenge.Infrastructure.Repositories;
+using Challenge.Services.Interfaces;
+using Challenge.Services.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+#region Services
+
+builder.Services.AddScoped<IDespesaService, DespesaService>();
+builder.Services.AddScoped<IReceitaService, ReceitaService>();
+
+#endregion
+
+#region Repositories
+
+builder.Services.AddScoped<IDespesasRepository, DespesasRepository>();
+builder.Services.AddScoped<IReceitasRepository, ReceitasRepository>();
+
+#endregion
+
+#region AutoMapper
+var mappingConfig = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new MappingProfile());
+});
+
+IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+#endregion
+
+#region Database
+
+var connString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+builder.Services.AddDbContext<FinanceContext>(cfg =>
+{
+    cfg.UseMySql(connString, ServerVersion.AutoDetect(connString));
+});
+
+#endregion
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

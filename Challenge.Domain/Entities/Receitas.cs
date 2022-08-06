@@ -14,6 +14,8 @@ public class Receitas : BaseEntity
         Descricao = descricao;
         Valor = valor;
         Data = data;
+        _errors = new List<string>();
+        Validate();
     }
     
     public void SetDescricao(string descricao)

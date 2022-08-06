@@ -13,13 +13,34 @@ public class ReceitasRepository : BaseRepository<Receitas>, IReceitasRepository
         _context = context;
     }
 
+    public async Task<Receitas> GetByMes(int mes)
+    {
+        var receita = await _context.TReceitas
+            .AsNoTracking()
+            .Where(d => d.Data.Month == mes)
+            .FirstOrDefaultAsync();
+
+        return receita;
+    }
+
+    public async Task<Receitas> GetByDescricao(string descricao)
+    {
+        var receita = await _context.TReceitas
+            .AsNoTracking().Where(d => d.Descricao
+                .ToLower()
+                .Contains(descricao.ToLower()))
+            .FirstOrDefaultAsync();
+
+        return receita;
+    }
+
     public async Task<List<Receitas>> SearchByDescricao(string descricao)
     {
         var allReceitas = await _context.TReceitas
             .AsNoTracking()
             .Where(d => d.Descricao
-                .Trim().ToLower()
-                .Contains(descricao.Trim().ToLower()))
+                .ToLower()
+                .Contains(descricao.ToLower()))
             .ToListAsync();
 
         return allReceitas;

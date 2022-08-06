@@ -19,32 +19,40 @@ public class ReceitaService : IReceitaService
 
     public async Task<ReceitasDTO> CreateAsync(ReceitasDTO receitasDto)
     {
-        var receitaExist = await _receitasRepository.SearchByDescricao(receitasDto.Descricao);
-        if (receitaExist != default && receitaExist[0].Data.Month == receitasDto.Data.Month)
-            throw new DomainException("Não é possível existir duas receitas iguais no mesmo mês.");
+        var entityDesc = await _receitasRepository.GetByDescricao(receitasDto.Descricao);
+        if (entityDesc != default)
+        {
+            var entityMes = await _receitasRepository.GetByMes(receitasDto.Data.Month);
+            if (entityMes != default)
+                throw new DomainException("Não é possível existir duas receitas iguais no mesmo mês.");
+        }
 
         var receita = _mapper.Map<Receitas>(receitasDto);
         receita.Validate();
 
-        await _receitasRepository.Create(receita);
-        return _mapper.Map<ReceitasDTO>(receita);
+        var receitaCreated = await _receitasRepository.Create(receita);
+        return _mapper.Map<ReceitasDTO>(receitaCreated);
     }
 
     public async Task<ReceitasDTO> UpdateAsync(ReceitasDTO receitasDto)
     {
         var receitaExist = await _receitasRepository.Get(receitasDto.Id);
-        if (receitaExist is null)
+        if (receitaExist == null)
             throw new ServiceException("Receita não encontrada!");
 
-        var receitaRepeated = await _receitasRepository.SearchByDescricao(receitasDto.Descricao);
-        if (receitaRepeated[0].Data.Month == receitasDto.Data.Month)
-            throw new DomainException("Não é possível existir duas receitas iguais no mesmo mês.");
+        var entityDesc = await _receitasRepository.GetByDescricao(receitasDto.Descricao);
+        if (entityDesc != default)
+        {
+            var entityMes = await _receitasRepository.GetByMes(receitasDto.Data.Month);
+            if (entityMes != default)
+                throw new DomainException("Não é possível existir duas receitas iguais no mesmo mês.");
+        }
 
         var receita = _mapper.Map<Receitas>(receitasDto);
         receita.Validate();
 
-        await _receitasRepository.Update(receita);
-        return _mapper.Map<ReceitasDTO>(receita);
+        var receitaUpdated = await _receitasRepository.Update(receita);
+        return _mapper.Map<ReceitasDTO>(receitaUpdated);
     }
 
     public async Task RemoveAsync(long id)

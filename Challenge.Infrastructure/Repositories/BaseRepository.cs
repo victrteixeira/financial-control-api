@@ -26,7 +26,6 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         _context.Entry(obj).State = EntityState.Modified;
         await _context.SaveChangesAsync();
-
         return obj;
     }
 
@@ -41,12 +40,10 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 
     public virtual async Task<T> Get(long id)
     {
-        var t = await _context.Set<T>()
+        return await _context.Set<T>()
             .AsNoTracking()
             .Where(i => i.Id == id)
-            .ToListAsync();
-
-        return t.FirstOrDefault();
+            .FirstOrDefaultAsync();
     }
 
     public virtual Task<List<T>> GetAll()
