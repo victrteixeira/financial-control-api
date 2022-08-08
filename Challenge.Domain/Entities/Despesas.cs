@@ -1,9 +1,10 @@
 ﻿using Challenge.Core;
 using Challenge.Domain.Validators;
+using FluentValidation;
 
 namespace Challenge.Domain;
 
-public class Despesas : BaseEntity
+public class Despesas : Base
 {
     protected Despesas() // EF Constructor
     {
@@ -35,19 +36,5 @@ public class Despesas : BaseEntity
         Validate();
     }
 
-    public override bool Validate()
-    {
-        var validator = new BaseEntityValidator();
-        var validation = validator.Validate(this);
-
-        if (!validation.IsValid)
-        {
-            foreach (var error in validation.Errors)
-                _errors.Add(error.ErrorMessage);
-
-            throw new DomainException("Alguns campos não são válidos", _errors);
-        }
-
-        return true;
-    }
+    public bool Validate() => base.Validate(new DespesasValidator(), this);
 }

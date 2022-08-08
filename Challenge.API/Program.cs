@@ -44,7 +44,7 @@ var connString = builder.Configuration["ConnectionStrings:DefaultConnection"];
 builder.Services.AddDbContext<FinanceContext>(cfg =>
 {
     cfg.UseMySql(connString, ServerVersion.AutoDetect(connString));
-});
+}, ServiceLifetime.Transient);
 
 #endregion
 

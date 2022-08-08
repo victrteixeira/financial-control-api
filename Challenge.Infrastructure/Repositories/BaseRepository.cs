@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Challenge.Infrastructure.Repositories;
 
-public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+public class BaseRepository<T> : IBaseRepository<T> where T : Base
 {
     private readonly FinanceContext _context;
 

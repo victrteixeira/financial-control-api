@@ -2,7 +2,7 @@
 
 namespace Challenge.Infrastructure.Interfaces;
 
-public interface IBaseRepository<T> where T : BaseEntity
+public interface IBaseRepository<T> where T : Base
 {
     Task<T> Create(T obj);
     Task<T> Update(T obj);

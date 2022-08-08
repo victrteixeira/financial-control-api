@@ -23,8 +23,6 @@ public class DespesasServiceTests
     }
     
     #region Create
-    
-    
     [Fact(DisplayName = "Create A Valid Despesa")]
     [Trait("Category","Services")]
     public async Task Create_ValidDespesa_ReturnsDespesaDTO()
@@ -115,14 +113,11 @@ public class DespesasServiceTests
         act.Should()
             .ThrowAsync<DomainException>();
     }
-    
-    [Fact(DisplayName = "Update A Valid Despesa")]
-    [Trait("Category","Services")]
-    
-
     #endregion
     
-    // Create an invalid dto
+    #region Update
+    [Fact(DisplayName = "Update A Valid Despesa")]
+    [Trait("Category","Services")]
     public async Task Update_ValidDespesa_ReturnsDespesaDTO()
     {
         // Arrange
@@ -134,7 +129,7 @@ public class DespesasServiceTests
             .ReturnsAsync(() => oldDespesa).Verifiable();
 
         _despesasRepositoryMock.Setup(x => x.SearchByDescricao(It.IsAny<string>()))
-            .ReturnsAsync(() => null);
+            .ReturnsAsync(() => default).Verifiable();
 
         _despesasRepositoryMock.Setup(x => x.Update(It.IsAny<Despesas>()))
             .ReturnsAsync(() => despesaUpdated);
@@ -145,6 +140,8 @@ public class DespesasServiceTests
         act.Should()
             .BeEquivalentTo(_mapper.Map<DespesasDTO>(despesaUpdated));
     }
+    #endregion
+    
     
     
 }

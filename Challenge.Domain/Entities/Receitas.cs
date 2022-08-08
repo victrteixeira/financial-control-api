@@ -3,7 +3,7 @@ using Challenge.Domain.Validators;
 
 namespace Challenge.Domain;
 
-public class Receitas : BaseEntity
+public class Receitas : Base
 {
     protected Receitas() // EF Constructor
     {
@@ -34,20 +34,5 @@ public class Receitas : BaseEntity
     {
         Data = data;
     }
-    
-    public override bool Validate()
-    {
-        var validator = new BaseEntityValidator();
-        var validation = validator.Validate(this);
-
-        if (!validation.IsValid)
-        {
-            foreach (var error in validation.Errors)
-                _errors.Add(error.ErrorMessage);
-
-            throw new DomainException("Alguns campos não válidso", _errors);
-        }
-
-        return true;
-    }
+    public bool Validate() => base.Validate(new ReceitasValidator(), this);
 }
