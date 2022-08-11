@@ -3,7 +3,7 @@ using Challenge.Domain.Validators;
 
 namespace Challenge.Domain;
 
-public class Despesas : BaseEntity
+public sealed class Despesas : BaseEntity
 {
     protected Despesas() // EF Constructor
     {
@@ -16,38 +16,6 @@ public class Despesas : BaseEntity
         _errors = new List<string>();
         Validate();
     }
-    
-    public void SetDescricao(string descricao)
-    {
-        Descricao = descricao;
-        Validate();
-    }
-    
-    public void SetValor(double valor)
-    {
-        Valor = valor;
-        Validate();
-    }
-    
-    public void SetData(DateTime data)
-    {
-        Data = data;
-        Validate();
-    }
 
-    public override bool Validate()
-    {
-        var validator = new BaseEntityValidator();
-        var validation = validator.Validate(this);
-
-        if (!validation.IsValid)
-        {
-            foreach (var error in validation.Errors)
-                _errors.Add(error.ErrorMessage);
-
-            throw new DomainException("Alguns campos não são válidos", _errors);
-        }
-
-        return true;
-    }
+    public bool Validate() => base.Validate(new DespesasValidator(), this);
 }

@@ -2,9 +2,9 @@
 
 namespace Challenge.Domain.Validators;
 
-public class BaseEntityValidator : AbstractValidator<BaseEntity>
+public class BaseValidator : AbstractValidator<BaseEntity>
 {
-    public BaseEntityValidator()
+    public BaseValidator()
     {
         RuleFor(x => x)
             .NotEmpty()
