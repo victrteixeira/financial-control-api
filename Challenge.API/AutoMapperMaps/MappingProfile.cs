@@ -9,10 +9,22 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Despesas, DespesasDTO>().ReverseMap();
+        CreateMap<DespesasDTO, Despesas>()
+            .ConstructUsing(src => new Despesas(src.Descricao, src.Valor, src.Data, src.Categorias))
+            .ReverseMap();
+
+        CreateMap<CreateDespesaViewModel, DespesasDTO>()
+            .ForMember(dest => dest.Categorias,
+                opt => opt.MapFrom(src => src.Categorias))
+            .ReverseMap().ForMember(dest => dest.Categorias,
+                opt => opt.MapFrom(src => src.Categorias.ToString()));
+        CreateMap<UpdateDespesaViewModel, DespesasDTO>()
+            .ForMember(dest => dest.Categorias,
+                opt => opt.MapFrom(src => src.Categorias))
+            .ReverseMap().ForMember(dest => dest.Categorias,
+                opt => opt.MapFrom(src => src.Categorias.ToString()));
+        
         CreateMap<Receitas, ReceitasDTO>().ReverseMap();
-        CreateMap<CreateDespesaViewModel, DespesasDTO>().ReverseMap();
-        CreateMap<UpdateDespesaViewModel, DespesasDTO>().ReverseMap();
         CreateMap<CreateReceitaViewModel, ReceitasDTO>().ReverseMap();
         CreateMap<UpdateReceitaViewModel, ReceitasDTO>().ReverseMap();
     }
