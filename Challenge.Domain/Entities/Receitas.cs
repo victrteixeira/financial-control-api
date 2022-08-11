@@ -3,20 +3,17 @@ using Challenge.Domain.Validators;
 
 namespace Challenge.Domain;
 
-public sealed class Receitas : BaseEntity
+public class Receitas : BaseEntity
 {
-    public Categoria Categorias { get; private set; }
-    
     protected Receitas() // EF Constructor
     {
     }
 
-    public Receitas(string descricao, double valor, DateTime data, Categoria categoria)
+    public Receitas(string descricao, double valor, DateTime data)
     {
         Descricao = descricao;
         Valor = valor;
         Data = data;
-        Categorias = categoria;
         _errors = new List<string>();
         Validate();
     }

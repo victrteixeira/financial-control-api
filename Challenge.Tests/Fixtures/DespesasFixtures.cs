@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using Bogus.DataSets;
 using Challenge.Domain;
+using Challenge.Domain.Enums;
 using Challenge.Services.DTO;
 
 namespace Challenge.Tests.Fixtures;
@@ -16,7 +17,8 @@ public class DespesasFixtures
         (
             descricao: new Finance().TransactionType(),
             valor: new Randomizer().Double(1, 1000),
-            data: new Date().Between(begin, end)
+            data: new Date().Between(begin, end),
+            categoria: Categoria.Educacao
         );
     }
 

@@ -17,4 +17,6 @@ public class UpdateDespesaViewModel
     [Required(ErrorMessage = "A Data da Despesa não pode ser nula.")]
     [Range(typeof(DateTime), "2021/12/31", "2023/01/01")]
     public DateTime Data { get; set; }
+    [Required(AllowEmptyStrings = true)]
+    public string Categorias { get; set; }
 }
