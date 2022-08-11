@@ -2,7 +2,7 @@
 
 namespace Challenge.Domain.Validators;
 
-public class BaseValidator : AbstractValidator<Base>
+public class BaseValidator : AbstractValidator<BaseEntity>
 {
     public BaseValidator()
     {

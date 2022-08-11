@@ -1,10 +1,8 @@
-﻿using Challenge.Core;
-using Challenge.Domain.Validators;
-using FluentValidation;
+﻿using Challenge.Domain.Validators;
 
 namespace Challenge.Domain;
 
-public class Despesas : Base
+public sealed class Despesas : BaseEntity
 {
     protected Despesas() // EF Constructor
     {
@@ -15,24 +13,6 @@ public class Despesas : Base
         Valor = valor;
         Data = data;
         _errors = new List<string>();
-        Validate();
-    }
-    
-    public void SetDescricao(string descricao)
-    {
-        Descricao = descricao;
-        Validate();
-    }
-    
-    public void SetValor(double valor)
-    {
-        Valor = valor;
-        Validate();
-    }
-    
-    public void SetData(DateTime data)
-    {
-        Data = data;
         Validate();
     }
 

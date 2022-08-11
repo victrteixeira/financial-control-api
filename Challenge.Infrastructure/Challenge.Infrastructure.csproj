@@ -9,7 +9,7 @@
     <ItemGroup>
       <PackageReference Include="microsoft.entityframeworkcore.design" Version="6.0.7">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        <PrivateAssets>all</PrivateAssets>
+        <PrivateAssets>none</PrivateAssets>
       </PackageReference>
       <PackageReference Include="microsoft.extensions.configuration.json" Version="6.0.0" />
       <PackageReference Include="pomelo.entityframeworkcore.mysql" Version="6.0.2" />
