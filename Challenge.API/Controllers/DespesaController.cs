@@ -130,4 +130,20 @@ public class DespesaController : Controller
             return StatusCode(500, e.Message);
         }
     }
+    
+    
+    [HttpGet]
+    [Route("api/v1/despesas/{ano}/{mes}")]
+    public async Task<IActionResult> ListByMonth([FromRoute] int ano, int mes)
+    {
+        try
+        {
+            var searchResult = await _despesaService.GetByMesAsync(ano, mes);
+            return Ok(Responses.EntityListFoundMessage(searchResult));
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, Responses.ApplicationErrorMessage());
+        }
+    }
 }

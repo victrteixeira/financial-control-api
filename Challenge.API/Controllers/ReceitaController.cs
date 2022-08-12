@@ -129,4 +129,19 @@ public class ReceitaController : Controller
             return StatusCode(500, Responses.ApplicationErrorMessage());
         }
     }
+    
+    [HttpGet]
+    [Route("api/v1/receitas/{ano}/{mes}")]
+    public async Task<IActionResult> ListByMonth([FromRoute] int ano, int mes)
+    {
+        try
+        {
+            var searchResult = await _receitaService.GetByMesAsync(ano, mes);
+            return Ok(Responses.EntityListFoundMessage(searchResult));
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, Responses.ApplicationErrorMessage());
+        }
+    }
 }
