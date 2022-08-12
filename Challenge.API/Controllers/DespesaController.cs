@@ -111,12 +111,19 @@ public class DespesaController : Controller
 
     [HttpGet]
     [Route("api/v1/despesas")]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? descricao = null)
     {
         try
         {
-            var allDespesas = await _despesaService.GetAllAsync();
-            return Ok(Responses.EntityListFoundMessage(allDespesas));
+            if (string.IsNullOrEmpty(descricao))
+            {
+                var allReceitas = await _despesaService.GetAllAsync();
+                return Ok(Responses.EntityListFoundMessage(allReceitas));
+            }
+
+            var searchResult = await _despesaService.SearchByDescricaoAsync(descricao);
+            return Ok(Responses.EntityListFoundMessage(searchResult));
+
         }
         catch (Exception e)
         {

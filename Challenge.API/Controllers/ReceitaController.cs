@@ -111,16 +111,22 @@ public class ReceitaController : Controller
     
     [HttpGet]
     [Route("api/v1/receitas")]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? descricao = null)
     {
         try
         {
-            var allReceitas = await _receitaService.GetAllAsync();
-            return Ok(Responses.EntityListFoundMessage(allReceitas));
+            if (string.IsNullOrEmpty(descricao))
+            {
+                var list = await _receitaService.GetAllAsync();
+                return Ok(Responses.EntityListFoundMessage(list));
+            }
+
+            var searchResult = await _receitaService.SearchByDescricaoAsync(descricao);
+            return Ok(Responses.EntityListFoundMessage(searchResult));
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            return StatusCode(500, e.Message);
+            return StatusCode(500, Responses.ApplicationErrorMessage());
         }
     }
 }
