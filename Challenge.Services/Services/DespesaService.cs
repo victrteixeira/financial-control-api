@@ -82,24 +82,20 @@ public class DespesaService : IDespesaService
         return _mapper.Map<List<DespesasDTO>>(allDespesas);
     }
 
-    public async Task<List<DespesasDTO>> SearchByValorAsync(double value)
-    {
-        var allDespesas = await _despesasRepository.SearchByValor(value);
-        return _mapper.Map<List<DespesasDTO>>(allDespesas);
-    }
-
     public async Task<List<DespesasDTO>> SearchByDescricaoAsync(string value)
     {
         var allDespesas = await _despesasRepository.SearchByDescricao(value);
         return _mapper.Map<List<DespesasDTO>>(allDespesas);
     }
 
-    public async Task<List<DespesasDTO>> SearchByMesAsync(int value)
+    public async Task<List<DespesasDTO>> GetByMesAsync(int ano, int mes)
     {
-        if (value > 12)
-            throw new ServiceException("Para buscar por um mês é necessário inserir um valor entre 1 e 12");
-        
-        var allDespesas = await _despesasRepository.SearchByMes(value);
-        return _mapper.Map<List<DespesasDTO>>(allDespesas);
+        var allDespesas = _despesasRepository.GetAll().Result;
+        var finalResult = await Task.Run(() =>
+        {
+            return allDespesas.Where(x => x.Data.Year == ano && x.Data.Month == mes).ToList();
+        });
+
+        return _mapper.Map<List<DespesasDTO>>(finalResult);
     }
 }

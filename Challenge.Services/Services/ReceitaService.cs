@@ -79,21 +79,20 @@ public class ReceitaService : IReceitaService
         return _mapper.Map<List<ReceitasDTO>>(allReceitas);
     }
 
-    public async Task<List<ReceitasDTO>> SearchByValorAsync(double valor)
-    {
-        var allReceitas = await _receitasRepository.SearchByValor(valor);
-        return _mapper.Map<List<ReceitasDTO>>(allReceitas);
-    }
-
     public async Task<List<ReceitasDTO>> SearchByDescricaoAsync(string descricao)
     {
         var allReceitas = await _receitasRepository.SearchByDescricao(descricao);
         return _mapper.Map<List<ReceitasDTO>>(allReceitas);
     }
 
-    public async Task<List<ReceitasDTO>> SearchByMesAsync(int mes)
+    public async Task<List<ReceitasDTO>> GetByMesAsync(int ano, int mes)
     {
-        var allReceitas = await _receitasRepository.SearchByMes(mes);
-        return _mapper.Map<List<ReceitasDTO>>(allReceitas);
+        var allReceitas = _receitasRepository.GetAll().Result;
+        var finalResult = await Task.Run(() =>
+        {
+            return allReceitas.Where(x => x.Data.Year == ano && x.Data.Month == mes).ToList();
+        });
+
+        return _mapper.Map<List<ReceitasDTO>>(finalResult);
     }
 }
