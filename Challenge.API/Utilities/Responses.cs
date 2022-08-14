@@ -64,4 +64,14 @@ public static class Responses
             Data = allDto
         };
     }
+
+    public static ResultViewModel BriefMessage(ResumoDTO resumoDto)
+    {
+        return new ResultViewModel
+        {
+            Message = "Resumo feito com sucesso!",
+            Success = true,
+            Data = resumoDto
+        };
+    }
 }

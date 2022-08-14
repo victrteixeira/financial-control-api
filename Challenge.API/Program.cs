@@ -17,6 +17,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IDespesaService, DespesaService>();
 builder.Services.AddScoped<IReceitaService, ReceitaService>();
+builder.Services.AddScoped<IResumoService, ResumoService>();
 
 #endregion
 
