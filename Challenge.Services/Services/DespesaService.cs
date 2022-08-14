@@ -17,7 +17,7 @@ public class DespesaService : IDespesaService
         _mapper = mapper;
     }
 
-    public async Task<DespesasDTO> CreateAsync(DespesasDTO despesasDto)
+    public async Task<ResponseDespesa> CreateAsync(DespesasDTO despesasDto)
     {
         var entityDesc = await _despesasRepository.GetByDescricao(despesasDto.Descricao);
         if (entityDesc != default)
@@ -31,11 +31,11 @@ public class DespesaService : IDespesaService
         despesa.Validate();
 
         var despesaCreated = await _despesasRepository.Create(despesa);
-        return _mapper.Map<DespesasDTO>(despesaCreated);
+        return _mapper.Map<ResponseDespesa>(despesaCreated);
     }
 
     // TODO > Complete the tests to this service.
-    public async Task<DespesasDTO> UpdateAsync(DespesasDTO despesasDto)
+    public async Task<ResponseDespesa> UpdateAsync(DespesasDTO despesasDto)
     {
         var oldDespesa = await _despesasRepository.Get(despesasDto.Id);
         if (oldDespesa == null)
@@ -54,12 +54,12 @@ public class DespesaService : IDespesaService
         despesas.Validate();
 
         var despesaUpdated = await _despesasRepository.Update(despesas);
-        return _mapper.Map<DespesasDTO>(despesas);
+        return _mapper.Map<ResponseDespesa>(despesas);
     }
 
     public async Task RemoveAsync(long id)
     {
-        var despesa = _despesasRepository.Get(id);
+        var despesa = _despesasRepository.Get(id).Result;
         if (despesa is null)
             throw new ServiceException(
                 "Nenhuma despesa encontrada para remoção");
@@ -67,28 +67,28 @@ public class DespesaService : IDespesaService
         await _despesasRepository.Remove(id);
     }
 
-    public async Task<DespesasDTO> GetAsync(long id)
+    public async Task<ResponseDespesa> GetAsync(long id)
     {
         var despesas = await _despesasRepository.Get(id);
         if (despesas is null)
             throw new ServiceException("Nenhum usuário encontrado.");
         
-        return _mapper.Map<DespesasDTO>(despesas);
+        return _mapper.Map<ResponseDespesa>(despesas);
     }
 
-    public async Task<List<DespesasDTO>> GetAllAsync()
+    public async Task<List<ResponseDespesa>> GetAllAsync()
     {
         var allDespesas = await _despesasRepository.GetAll();
-        return _mapper.Map<List<DespesasDTO>>(allDespesas);
+        return _mapper.Map<List<ResponseDespesa>>(allDespesas);
     }
 
-    public async Task<List<DespesasDTO>> SearchByDescricaoAsync(string value)
+    public async Task<List<ResponseDespesa>> SearchByDescricaoAsync(string value)
     {
         var allDespesas = await _despesasRepository.SearchByDescricao(value);
-        return _mapper.Map<List<DespesasDTO>>(allDespesas);
+        return _mapper.Map<List<ResponseDespesa>>(allDespesas);
     }
 
-    public async Task<List<DespesasDTO>> GetByMesAsync(int ano, int mes)
+    public async Task<List<ResponseDespesa>> GetByMesAsync(int ano, int mes)
     {
         var allDespesas = _despesasRepository.GetAll().Result;
         var finalResult = await Task.Run(() =>
@@ -96,6 +96,6 @@ public class DespesaService : IDespesaService
             return allDespesas.Where(x => x.Data.Year == ano && x.Data.Month == mes).ToList();
         });
 
-        return _mapper.Map<List<DespesasDTO>>(finalResult);
+        return _mapper.Map<List<ResponseDespesa>>(finalResult);
     }
 }

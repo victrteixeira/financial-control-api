@@ -4,11 +4,11 @@ namespace Challenge.Services.Interfaces;
 
 public interface IDespesaService
 {
-    Task<DespesasDTO> CreateAsync(DespesasDTO despesasDto);
-    Task<DespesasDTO> UpdateAsync(DespesasDTO despesasDto);
+    Task<ResponseDespesa> CreateAsync(DespesasDTO despesasDto);
+    Task<ResponseDespesa> UpdateAsync(DespesasDTO despesasDto);
     Task RemoveAsync(long id);
-    Task<DespesasDTO> GetAsync(long id);
-    Task<List<DespesasDTO>> GetAllAsync();
-    Task<List<DespesasDTO>> SearchByDescricaoAsync(string descricao);
-    Task<List<DespesasDTO>> GetByMesAsync(int ano, int mes);
+    Task<ResponseDespesa> GetAsync(long id);
+    Task<List<ResponseDespesa>> GetAllAsync();
+    Task<List<ResponseDespesa>> SearchByDescricaoAsync(string descricao);
+    Task<List<ResponseDespesa>> GetByMesAsync(int ano, int mes);
 }

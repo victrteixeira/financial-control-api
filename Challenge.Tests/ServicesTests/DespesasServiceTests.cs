@@ -57,7 +57,7 @@ public class DespesasServiceTests
         despesaList[0] = despesa;
         
         // Act
-        Func<Task<DespesasDTO>> act = async () => { return await _sut.CreateAsync(despesaDto); };
+        Func<Task<ResponseDespesa>> act = async () => { return await _sut.CreateAsync(despesaDto); };
         //Assert
         act.Should()
             .ThrowAsync<DomainException>();
@@ -108,7 +108,7 @@ public class DespesasServiceTests
             .ReturnsAsync(() => despesaList);
     
         // Act
-        Func<Task<DespesasDTO>> act = async () => { return await _sut.CreateAsync(despesaDto); };
+        Func<Task<ResponseDespesa>> act = async () => { return await _sut.CreateAsync(despesaDto); };
         // Assert
         act.Should()
             .ThrowAsync<DomainException>();
