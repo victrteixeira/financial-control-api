@@ -3,8 +3,10 @@ using Challenge.API.AutoMapperMaps;
 using Challenge.Infrastructure.Context;
 using Challenge.Infrastructure.Interfaces;
 using Challenge.Infrastructure.Repositories;
+using Challenge.Security;
 using Challenge.Services.Interfaces;
 using Challenge.Services.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,11 +43,35 @@ builder.Services.AddSingleton(mapper);
 
 #region Database
 
-var connString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+var defaultConnection = builder.Configuration["ConnectionStrings:DefaultConnection"];
+var authConnection = builder.Configuration["ConnectionStrings:AuthConnection"];
 builder.Services.AddDbContext<FinanceContext>(cfg =>
 {
-    cfg.UseMySql(connString, ServerVersion.AutoDetect(connString));
+    cfg.UseMySql(defaultConnection, ServerVersion.AutoDetect(defaultConnection));
 }, ServiceLifetime.Transient);
+
+#endregion
+
+#region Identity
+
+builder.Services.AddDbContext<AuthContext>(cfg =>
+{
+    cfg.UseMySql(authConnection, ServerVersion.AutoDetect(authConnection));
+});
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
+{
+    opt.SignIn.RequireConfirmedAccount = true;
+    opt.Password.RequireDigit = true;
+    opt.Password.RequiredLength = 8;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireUppercase = true;
+    opt.Password.RequireNonAlphanumeric = true;
+    opt.Password.RequiredUniqueChars = 1;
+
+    opt.User.RequireUniqueEmail = true;
+    opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+}).AddEntityFrameworkStores<AuthContext>();
 
 #endregion
 
@@ -63,6 +89,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

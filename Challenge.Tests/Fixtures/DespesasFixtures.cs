@@ -55,4 +55,26 @@ public class DespesasFixtures
             Valor = 0.88
         };
     }
+
+    public static ResponseDespesa CreateValidDespesaResponse()
+    {
+        return new ResponseDespesa
+        {
+            Descricao = new Finance().TransactionType(),
+            Data = new Date().Between(begin, end),
+            Valor = new Randomizer().Double(1, 10000),
+            Categorias = "Outros"
+        };
+    }
+
+    public static List<ResponseDespesa> CreateListValidDespesasResponse(int limit = 5)
+    {
+        var list = new List<ResponseDespesa>();
+        for (int i = 0; i < limit; i++)
+        {
+            list.Add(CreateValidDespesaResponse());
+        }
+
+        return list;
+    }
 }

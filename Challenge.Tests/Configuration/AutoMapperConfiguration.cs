@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Challenge.Domain;
-using Challenge.Services.DTO;
+﻿using Challenge.Domain.Enums;
 
 namespace Challenge.Tests.Configuration;
 
@@ -12,6 +10,10 @@ public class AutoMapperConfiguration
         {
             cfg.CreateMap<Despesas, DespesasDTO>().ReverseMap();
             cfg.CreateMap<Receitas, ReceitasDTO>().ReverseMap();
+            cfg.CreateMap<Despesas, ResponseDespesa>()
+                .ForMember(dest => dest.Categorias,
+                    opt => opt
+                        .MapFrom(src => Enum.GetName(typeof(Categoria), src.Categorias)));
         });
         return autoMapperConfig.CreateMapper();
     }
