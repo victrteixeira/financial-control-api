@@ -36,15 +36,15 @@ public class AuthServices : IAuthServices
         return isCreated;
     }
 
-    public async Task<SuccessfulLoginResponse> LoginAsync(LoginViewModel request)
+    public async Task<IdentityResult> LoginAsync(LoginViewModel request)
     {
         var existingUser = await _userManager.FindByEmailAsync(request.Email);
         var checkPassword = await _userManager.CheckPasswordAsync(existingUser, request.Password);
-        
-        if(existingUser == null || !checkPassword)
-            return IdentityResult.Failed(new IdentityError{ Description = "Credentials incorrect." });
-        
-        
 
+        if (existingUser == null || !checkPassword)
+            return IdentityResult.Failed(new IdentityError 
+                { Description = "Those credentials don't match with any account." });
+
+        return IdentityResult.Success;
     }
 }

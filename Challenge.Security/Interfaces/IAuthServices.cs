@@ -6,5 +6,5 @@ namespace Challenge.Security.Interfaces;
 public interface IAuthServices
 {
     Task<IdentityResult> RegisterAsync(RegisterViewModel request);
-    Task<SuccessfulLoginResponse> LoginAsync(LoginViewModel request);
+    Task<IdentityResult> LoginAsync(LoginViewModel request);
 }
