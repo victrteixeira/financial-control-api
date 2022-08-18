@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Challenge.API.Utilities;
-using Challenge.API.ViewModels;
-using Challenge.Core;
+using Challenge.Services.Utilities;
+using Challenge.Services.ViewModels;
+using Challenge.Services;
 using Challenge.Services.DTO;
 using Challenge.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;

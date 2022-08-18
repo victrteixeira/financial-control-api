@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Challenge.API.ViewModels;
+using Challenge.Services.ViewModels;
 using Challenge.Domain.Enums;
 using Challenge.Services.DTO;
 
-namespace Challenge.API.Utilities;
+namespace Challenge.Services.Utilities;
 
 public class CategoriesEnumResolver : IValueResolver<CreateDespesaViewModel, DespesasDTO, Categoria>, IValueResolver<UpdateDespesaViewModel, DespesasDTO, Categoria>
 {

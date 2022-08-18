@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Challenge.Core;
 using Challenge.Domain;
 using Challenge.Infrastructure.Interfaces;
 using Challenge.Services.DTO;

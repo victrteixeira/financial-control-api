@@ -1,7 +1,7 @@
-﻿using Challenge.API.ViewModels;
+﻿using Challenge.Services.ViewModels;
 using Challenge.Services.DTO;
 
-namespace Challenge.API.Utilities;
+namespace Challenge.Services.Utilities;
 
 public static class Responses
 {

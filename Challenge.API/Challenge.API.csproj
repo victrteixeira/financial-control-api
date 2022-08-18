@@ -11,10 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Challenge.Domain\Challenge.Domain.csproj" />
-      <ProjectReference Include="..\Challenge.Infrastructure\Challenge.Infrastructure.csproj" />
-      <ProjectReference Include="..\Challenge.Security\Challenge.Security.csproj" />
-      <ProjectReference Include="..\Challenge.Services\Challenge.Services.csproj" />
+      <ProjectReference Include="..\Challenge.IoC\Challenge.IoC.csproj" />
     </ItemGroup>
-
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Challenge.Core;
+﻿namespace Challenge.Services;
 
 public class DomainException : Exception
 {

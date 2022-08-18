@@ -9,9 +9,4 @@
     <ItemGroup>
       <PackageReference Include="fluentvalidation" Version="11.1.0" />
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Challenge.Core\Challenge.Core.csproj" />
-    </ItemGroup>
-
 </Project>

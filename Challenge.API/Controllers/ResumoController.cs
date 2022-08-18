@@ -1,4 +1,4 @@
-﻿using Challenge.API.Utilities;
+﻿using Challenge.Services.Utilities;
 using Challenge.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

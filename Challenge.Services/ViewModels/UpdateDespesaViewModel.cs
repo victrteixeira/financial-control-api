@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Challenge.API.ViewModels;
+namespace Challenge.Services.ViewModels;
 
-public class UpdateReceitaViewModel
+public class UpdateDespesaViewModel
 {
     [Required(ErrorMessage = "O ID não pode ser nulo.")]
     [Range(1, long.MaxValue, ErrorMessage = "O ID não pode ser menor que 1")]
@@ -17,4 +17,6 @@ public class UpdateReceitaViewModel
     [Required(ErrorMessage = "A Data da Despesa não pode ser nula.")]
     [Range(typeof(DateTime), "2021/12/31", "2023/01/01")]
     public DateTime Data { get; set; }
+    [Required(AllowEmptyStrings = true)]
+    public string Categorias { get; set; }
 }

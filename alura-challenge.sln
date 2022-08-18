@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.Services", "Chall
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{23DBE513-83AF-4EB0-AFF1-334161BF9C68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.Core", "Challenge.Core\Challenge.Core.csproj", "{CF08DA22-ADAE-463C-890B-4F1510C223F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.IoC", "Challenge.IoC\Challenge.IoC.csproj", "{CF08DA22-ADAE-463C-890B-4F1510C223F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.Tests", "Challenge.Tests\Challenge.Tests.csproj", "{7A47AFAB-AE27-4FDC-ADF5-A3D42572F667}"
 EndProject

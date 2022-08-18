@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Challenge.API.ViewModels;
+namespace Challenge.Services.ViewModels;
 
-public class CreateReceitaViewModel
+public class CreateDespesaViewModel
 {
     [Required(ErrorMessage = "A Descricao da Despesa não pode ser nula.")]
     [MinLength(3, ErrorMessage = "A descrição deve ter no mínimo 3 caracteres")]
@@ -14,4 +14,6 @@ public class CreateReceitaViewModel
     [Required(ErrorMessage = "A Data da Despesa não pode ser nula.")]
     [Range(typeof(DateTime), "2021/12/31", "2023/01/01")]
     public DateTime Data { get; set; }
+    [Required(AllowEmptyStrings = true)]
+    public string Categorias { get; set; }
 }

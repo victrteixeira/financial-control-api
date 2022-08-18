@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Challenge.API.Utilities;
-using Challenge.API.ViewModels;
+using Challenge.Services.Utilities;
+using Challenge.Services.ViewModels;
 using Challenge.Domain;
 using Challenge.Domain.Enums;
 using Challenge.Services.DTO;
 
-namespace Challenge.API.AutoMapperMaps;
+namespace Challenge.Services.AutoMapperMaps;
 
 public class MappingProfile : Profile
 {

@@ -1,6 +1,3 @@
-using Bogus;
-using Challenge.Core;
-
 namespace Challenge.Tests;
 
 public class DespesasServiceTests

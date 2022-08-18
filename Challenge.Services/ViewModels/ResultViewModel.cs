@@ -1,4 +1,4 @@
-﻿namespace Challenge.API.ViewModels;
+﻿namespace Challenge.Services.ViewModels;
 
 public class ResultViewModel
 {
