@@ -4,8 +4,8 @@ namespace Challenge.Services.Interfaces;
 
 public interface IDespesaService
 {
-    Task<ResponseDespesa> CreateAsync(DespesasDTO despesasDto);
-    Task<ResponseDespesa> UpdateAsync(DespesasDTO despesasDto);
+    Task<ResponseDespesa> CreateAsync(DespesasDto despesasDto);
+    Task<ResponseDespesa> UpdateAsync(DespesasDto despesasDto);
     Task RemoveAsync(long id);
     Task<ResponseDespesa> GetAsync(long id);
     Task<List<ResponseDespesa>> GetAllAsync();

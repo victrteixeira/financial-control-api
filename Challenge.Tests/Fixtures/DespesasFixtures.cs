@@ -34,9 +34,9 @@ public class DespesasFixtures
         return list;
     }
 
-    public static DespesasDTO CreateValidDespesasDTO(bool newId = false)
+    public static DespesasDto CreateValidDespesasDTO(bool newId = false)
     {
-        return new DespesasDTO
+        return new DespesasDto
         {
             Id = newId ? new Randomizer().Int(0, 10000) : 0,
             Descricao = new Finance().TransactionType(),
@@ -45,9 +45,9 @@ public class DespesasFixtures
         };
     }
 
-    public static DespesasDTO CreateInvalidDespesasDTO()
+    public static DespesasDto CreateInvalidDespesasDTO()
     {
-        return new DespesasDTO
+        return new DespesasDto
         {
             Id = 0,
             Descricao = "",

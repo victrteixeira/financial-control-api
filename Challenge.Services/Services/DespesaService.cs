@@ -16,7 +16,7 @@ public class DespesaService : IDespesaService
         _mapper = mapper;
     }
 
-    public async Task<ResponseDespesa> CreateAsync(DespesasDTO despesasDto)
+    public async Task<ResponseDespesa> CreateAsync(DespesasDto despesasDto)
     {
         var entityDesc = await _despesasRepository.GetByDescricao(despesasDto.Descricao);
         if (entityDesc != default)
@@ -34,7 +34,7 @@ public class DespesaService : IDespesaService
     }
 
     // TODO > Complete the tests to this service.
-    public async Task<ResponseDespesa> UpdateAsync(DespesasDTO despesasDto)
+    public async Task<ResponseDespesa> UpdateAsync(DespesasDto despesasDto)
     {
         var oldDespesa = await _despesasRepository.Get(despesasDto.Id);
         if (oldDespesa == null)

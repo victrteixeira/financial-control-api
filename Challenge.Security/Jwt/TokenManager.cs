@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Text;
 using Challenge.Security.Interfaces;
-using Challenge.Security.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

@@ -1,5 +1,4 @@
 using Challenge.IoC;
-using Challenge.Security.Interfaces;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);

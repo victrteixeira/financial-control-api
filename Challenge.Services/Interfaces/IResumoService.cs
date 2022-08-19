@@ -4,5 +4,5 @@ namespace Challenge.Services.Interfaces;
 
 public interface IResumoService
 {
-    Task<ResumoDTO> ResumoOverall(int ano, int mes);
+    Task<ResumoDto> ResumoOverall(int ano, int mes);
 }

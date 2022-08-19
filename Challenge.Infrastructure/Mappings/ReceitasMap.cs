@@ -1,5 +1,4 @@
 ﻿using Challenge.Domain;
-using Challenge.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

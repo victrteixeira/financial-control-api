@@ -5,9 +5,9 @@ using Challenge.Services.DTO;
 
 namespace Challenge.Services.Utilities;
 
-public class CategoriesEnumResolver : IValueResolver<CreateDespesaViewModel, DespesasDTO, Categoria>, IValueResolver<UpdateDespesaViewModel, DespesasDTO, Categoria>
+public class CategoriesEnumResolver : IValueResolver<CreateDespesaViewModel, DespesasDto, Categoria>, IValueResolver<UpdateDespesaViewModel, DespesasDto, Categoria>
 {
-    public Categoria Resolve(CreateDespesaViewModel source, DespesasDTO destination, Categoria destMember,
+    public Categoria Resolve(CreateDespesaViewModel source, DespesasDto destination, Categoria destMember,
         ResolutionContext context)
     {
         if (Enum.TryParse<Categoria>(source.Categorias, out var categoria))
@@ -16,7 +16,7 @@ public class CategoriesEnumResolver : IValueResolver<CreateDespesaViewModel, Des
         return Categoria.Outros;
     }
 
-    public Categoria Resolve(UpdateDespesaViewModel source, DespesasDTO destination, Categoria destMember,
+    public Categoria Resolve(UpdateDespesaViewModel source, DespesasDto destination, Categoria destMember,
         ResolutionContext context)
     {
         if (Enum.TryParse<Categoria>(source.Categorias, out var categoria))

@@ -16,7 +16,7 @@ public class ReceitaService : IReceitaService
         _mapper = mapper;
     }
 
-    public async Task<ReceitasDTO> CreateAsync(ReceitasDTO receitasDto)
+    public async Task<ReceitasDto> CreateAsync(ReceitasDto receitasDto)
     {
         var entityDesc = await _receitasRepository.GetByDescricao(receitasDto.Descricao);
         if (entityDesc != default)
@@ -30,10 +30,10 @@ public class ReceitaService : IReceitaService
         receita.Validate();
 
         var receitaCreated = await _receitasRepository.Create(receita);
-        return _mapper.Map<ReceitasDTO>(receitaCreated);
+        return _mapper.Map<ReceitasDto>(receitaCreated);
     }
 
-    public async Task<ReceitasDTO> UpdateAsync(ReceitasDTO receitasDto)
+    public async Task<ReceitasDto> UpdateAsync(ReceitasDto receitasDto)
     {
         var receitaExist = await _receitasRepository.Get(receitasDto.Id);
         if (receitaExist == null)
@@ -51,7 +51,7 @@ public class ReceitaService : IReceitaService
         receita.Validate();
 
         var receitaUpdated = await _receitasRepository.Update(receita);
-        return _mapper.Map<ReceitasDTO>(receitaUpdated);
+        return _mapper.Map<ReceitasDto>(receitaUpdated);
     }
 
     public async Task RemoveAsync(long id)
@@ -63,28 +63,28 @@ public class ReceitaService : IReceitaService
         await _receitasRepository.Remove(id);
     }
 
-    public async Task<ReceitasDTO> GetAsync(long id)
+    public async Task<ReceitasDto> GetAsync(long id)
     {
         var receita = await _receitasRepository.Get(id);
         if (receita is null)
             throw new ServiceException("Nenhuma receita encontrada.");
 
-        return _mapper.Map<ReceitasDTO>(receita);
+        return _mapper.Map<ReceitasDto>(receita);
     }
 
-    public async Task<List<ReceitasDTO>> GetAllAsync()
+    public async Task<List<ReceitasDto>> GetAllAsync()
     {
         var allReceitas =  await _receitasRepository.GetAll();
-        return _mapper.Map<List<ReceitasDTO>>(allReceitas);
+        return _mapper.Map<List<ReceitasDto>>(allReceitas);
     }
 
-    public async Task<List<ReceitasDTO>> SearchByDescricaoAsync(string descricao)
+    public async Task<List<ReceitasDto>> SearchByDescricaoAsync(string descricao)
     {
         var allReceitas = await _receitasRepository.SearchByDescricao(descricao);
-        return _mapper.Map<List<ReceitasDTO>>(allReceitas);
+        return _mapper.Map<List<ReceitasDto>>(allReceitas);
     }
 
-    public async Task<List<ReceitasDTO>> GetByMesAsync(int ano, int mes)
+    public async Task<List<ReceitasDto>> GetByMesAsync(int ano, int mes)
     {
         var allReceitas = _receitasRepository.GetAll().Result;
         var finalResult = await Task.Run(() =>
@@ -92,6 +92,6 @@ public class ReceitaService : IReceitaService
             return allReceitas.Where(x => x.Data.Year == ano && x.Data.Month == mes).ToList();
         });
 
-        return _mapper.Map<List<ReceitasDTO>>(finalResult);
+        return _mapper.Map<List<ReceitasDto>>(finalResult);
     }
 }

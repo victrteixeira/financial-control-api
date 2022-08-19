@@ -1,10 +1,8 @@
-﻿using Challenge.Domain.Enums;
+﻿namespace Challenge.Services.DTO;
 
-namespace Challenge.Services.DTO;
-
-public class ResumoDTO
+public class ResumoDto
 {
-    public ResumoDTO(decimal receitaValue, decimal despesaValue, decimal saldo, List<CategoriaDTO> categoriaOverAll)
+    public ResumoDto(decimal receitaValue, decimal despesaValue, decimal saldo, List<CategoriaDto> categoriaOverAll)
     {
         ReceitaValue = receitaValue;
         DespesaValue = despesaValue;
@@ -12,12 +10,12 @@ public class ResumoDTO
         CategoriaOverAll = categoriaOverAll;
     }
 
-    public ResumoDTO()
+    public ResumoDto()
     {
     }
 
     public decimal ReceitaValue { get; set; }
     public decimal DespesaValue { get; set; }
     public decimal Saldo { get; set; }
-    public List<CategoriaDTO> CategoriaOverAll { get; set; }
+    public List<CategoriaDto> CategoriaOverAll { get; set; }
 }

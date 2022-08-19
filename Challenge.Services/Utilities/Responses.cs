@@ -65,7 +65,7 @@ public static class Responses
         };
     }
 
-    public static ResultViewModel BriefMessage(ResumoDTO resumoDto)
+    public static ResultViewModel BriefMessage(ResumoDto resumoDto)
     {
         return new ResultViewModel
         {

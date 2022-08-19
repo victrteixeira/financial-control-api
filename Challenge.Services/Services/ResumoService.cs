@@ -18,10 +18,10 @@ public class ResumoService : IResumoService
         _despesasRepository = despesasRepository;
     }
     
-    public async Task<ResumoDTO> ResumoOverall(int ano, int mes)
+    public async Task<ResumoDto> ResumoOverall(int ano, int mes)
     {
-        ResumoDTO resumoDto = new();
-        resumoDto.CategoriaOverAll = new List<CategoriaDTO>();
+        ResumoDto resumoDto = new();
+        resumoDto.CategoriaOverAll = new List<CategoriaDto>();
 
         var allReceitas = _receitasRepository.GetAll().Result;
         await Task.Run(() =>
@@ -44,7 +44,7 @@ public class ResumoService : IResumoService
             foreach (var categoria in (Categoria[])Enum.GetValues(typeof(Categoria)))
             {
                 var value = allDespesas.Where(x => x.Categorias == categoria && x.Data.Year == ano && x.Data.Month == mes).Sum(x => x.Valor);
-                var categoryDto = new CategoriaDTO((decimal)value, categoria);
+                var categoryDto = new CategoriaDto((decimal)value, categoria);
                 resumoDto.CategoriaOverAll.Add(categoryDto);
             }
         });

@@ -1,5 +1,4 @@
-﻿using Challenge.Domain.Enums;
-using Challenge.Domain.Validators;
+﻿using Challenge.Domain.Validators;
 
 namespace Challenge.Domain;
 

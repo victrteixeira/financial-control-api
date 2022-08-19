@@ -28,7 +28,7 @@ public class ReceitaController : Controller
     {
         try
         {
-            var receitaDto = _mapper.Map<ReceitasDTO>(createViewModel);
+            var receitaDto = _mapper.Map<ReceitasDto>(createViewModel);
             var receitaCreated = await _receitaService.CreateAsync(receitaDto);
             return StatusCode(201, new ResultViewModel
             {
@@ -53,7 +53,7 @@ public class ReceitaController : Controller
     {
         try
         {
-            var newReceitaDto = _mapper.Map<ReceitasDTO>(updateViewModel);
+            var newReceitaDto = _mapper.Map<ReceitasDto>(updateViewModel);
             var receitaUpdated = await _receitaService.UpdateAsync(newReceitaDto);
             return Ok(new ResultViewModel
             {

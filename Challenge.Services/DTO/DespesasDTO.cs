@@ -2,7 +2,7 @@
 
 namespace Challenge.Services.DTO;
 
-public class DespesasDTO
+public class DespesasDto
 {
     public long Id { get; set; }
     public string Descricao { get; set; }
@@ -10,7 +10,7 @@ public class DespesasDTO
     public DateTime Data { get; set; }
     public Categoria Categorias { get; set; } = Categoria.Outros;
 
-    public DespesasDTO(long id, string descricao, double valor, DateTime data, Categoria categorias)
+    public DespesasDto(long id, string descricao, double valor, DateTime data, Categoria categorias)
     {
         Id = id;
         Descricao = descricao;
@@ -19,7 +19,7 @@ public class DespesasDTO
         Categorias = categorias;
     }
 
-    public DespesasDTO()
+    public DespesasDto()
     {
     }
 }

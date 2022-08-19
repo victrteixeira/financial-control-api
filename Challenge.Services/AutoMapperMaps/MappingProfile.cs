@@ -11,7 +11,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<DespesasDTO, Despesas>()
+        CreateMap<DespesasDto, Despesas>()
             .ConstructUsing(src => new Despesas(src.Descricao, src.Valor, src.Data, src.Categorias))
             .ReverseMap();
 
@@ -20,18 +20,18 @@ public class MappingProfile : Profile
                 opt => opt
                     .MapFrom(src => Enum.GetName(typeof(Categoria), src.Categorias)));
 
-        CreateMap<CreateDespesaViewModel, DespesasDTO>()
+        CreateMap<CreateDespesaViewModel, DespesasDto>()
             .ForMember(dest => dest.Categorias,
                 opt => opt
                     .MapFrom<CategoriesEnumResolver>());
 
-        CreateMap<UpdateDespesaViewModel, DespesasDTO>()
+        CreateMap<UpdateDespesaViewModel, DespesasDto>()
             .ForMember(dest => dest.Categorias,
                 opt => opt
                     .MapFrom<CategoriesEnumResolver>());
         
-        CreateMap<Receitas, ReceitasDTO>().ReverseMap();
-        CreateMap<CreateReceitaViewModel, ReceitasDTO>().ReverseMap();
-        CreateMap<UpdateReceitaViewModel, ReceitasDTO>().ReverseMap();
+        CreateMap<Receitas, ReceitasDto>().ReverseMap();
+        CreateMap<CreateReceitaViewModel, ReceitasDto>().ReverseMap();
+        CreateMap<UpdateReceitaViewModel, ReceitasDto>().ReverseMap();
     }
 }

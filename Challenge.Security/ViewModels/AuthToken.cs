@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Challenge.Security.ViewModels;
+﻿namespace Challenge.Security.ViewModels;
 
 public class AuthToken
 {

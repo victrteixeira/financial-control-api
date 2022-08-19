@@ -28,7 +28,7 @@ public class DespesaController : Controller
     {
         try
         {
-            var despesaDto = _mapper.Map<DespesasDTO>(createViewModel);
+            var despesaDto = _mapper.Map<DespesasDto>(createViewModel);
             var despesaCreated = await _despesaService.CreateAsync(despesaDto);
             return StatusCode(201, new ResultViewModel
             {
@@ -53,7 +53,7 @@ public class DespesaController : Controller
     {
         try
         {
-            var newDespesaDto = _mapper.Map<DespesasDTO>(updateViewModel);
+            var newDespesaDto = _mapper.Map<DespesasDto>(updateViewModel);
             var despesaUpdated = await _despesaService.UpdateAsync(newDespesaDto);
             return Ok(new ResultViewModel
             {

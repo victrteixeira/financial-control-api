@@ -1,5 +1,4 @@
-﻿using Challenge.Security.ViewModels;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Challenge.Security.Interfaces;
 

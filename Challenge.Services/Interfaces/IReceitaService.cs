@@ -4,11 +4,11 @@ namespace Challenge.Services.Interfaces;
 
 public interface IReceitaService
 {
-    Task<ReceitasDTO> CreateAsync(ReceitasDTO receitasDto);
-    Task<ReceitasDTO> UpdateAsync(ReceitasDTO receitasDto);
+    Task<ReceitasDto> CreateAsync(ReceitasDto receitasDto);
+    Task<ReceitasDto> UpdateAsync(ReceitasDto receitasDto);
     Task RemoveAsync(long id);
-    Task<ReceitasDTO> GetAsync(long id);
-    Task<List<ReceitasDTO>> GetAllAsync();
-    Task<List<ReceitasDTO>> SearchByDescricaoAsync(string descricao);
-    Task<List<ReceitasDTO>> GetByMesAsync(int ano, int mes);
+    Task<ReceitasDto> GetAsync(long id);
+    Task<List<ReceitasDto>> GetAllAsync();
+    Task<List<ReceitasDto>> SearchByDescricaoAsync(string descricao);
+    Task<List<ReceitasDto>> GetByMesAsync(int ano, int mes);
 }

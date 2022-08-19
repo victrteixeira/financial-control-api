@@ -2,15 +2,15 @@
 
 namespace Challenge.Services.DTO;
 
-public class CategoriaDTO
+public class CategoriaDto
 {
-    public CategoriaDTO(decimal? value, Categoria categoria)
+    public CategoriaDto(decimal? value, Categoria categoria)
     {
         Value = value;
         Categoria = categoria;
     }
 
-    public CategoriaDTO()
+    public CategoriaDto()
     {
     }
 
