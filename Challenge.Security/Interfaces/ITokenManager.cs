@@ -5,5 +5,5 @@ namespace Challenge.Security.Interfaces;
 
 public interface ITokenManager
 {
-    Task<AuthToken> GenerateToken(IdentityUser user);
+    Task<string> GenerateToken(IdentityUser<long>? user);
 }

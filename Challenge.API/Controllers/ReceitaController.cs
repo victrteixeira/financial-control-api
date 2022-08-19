@@ -4,11 +4,13 @@ using Challenge.Services.ViewModels;
 using Challenge.Services;
 using Challenge.Services.DTO;
 using Challenge.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Challenge.API.Controllers;
 
 [ApiController]
+[Authorize]
 public class ReceitaController : Controller
 {
     private readonly IMapper _mapper;

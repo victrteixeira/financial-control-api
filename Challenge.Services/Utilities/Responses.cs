@@ -74,4 +74,14 @@ public static class Responses
             Data = resumoDto
         };
     }
+
+    public static ResultViewModel NotAllowedMessage()
+    {
+        return new ResultViewModel
+        {
+            Message = "Credenciais incorretas, não foi possível realizar o log in.",
+            Success = false,
+            Data = null
+        };
+    }
 }

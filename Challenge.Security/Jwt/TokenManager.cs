@@ -1,44 +1,52 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using Challenge.Security.Interfaces;
 using Challenge.Security.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Challenge.Security.Jwt;
 
 public class TokenManager : ITokenManager
 {
-    private readonly TokenSettings _tokenSettings;
-
-    public TokenManager(TokenSettings tokenSettings)
+    private readonly IConfiguration _configuration;
+    public TokenManager(IConfiguration configuration)
     {
-        _tokenSettings = tokenSettings;
+        _configuration = configuration;
     }
 
-    public async Task<AuthToken> GenerateToken(IdentityUser user)
+    public async Task<string> GenerateToken(IdentityUser<long>? user)
     {
-        var handler = new JwtSecurityTokenHandler();
-        var tokenDescription = new SecurityTokenDescriptor
+        return await Task.Run(() =>
         {
-            Subject = _tokenSettings.AddSubject(user),
-            Issuer = _tokenSettings.Issuer,
-            Audience = _tokenSettings.Audience,
-            IssuedAt = _tokenSettings.IssuedAt,
-            NotBefore = _tokenSettings.NotBefore,
-            Expires = _tokenSettings.AccessTokenExpiration,
-            SigningCredentials = _tokenSettings.SigningCredentials
-        };
+            var secureKey = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+            var issuer = _configuration["Jwt:Issuer"];
+            var audience = _configuration["Jwt:Audience"];
+            var securityKey = new SymmetricSecurityKey(secureKey);
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
-        var token = handler.CreateToken(tokenDescription);
-        var accessToken = handler.WriteToken(token);
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
+                }),
+                IssuedAt = DateTime.UtcNow,
+                NotBefore = DateTime.UtcNow,
+                Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_configuration["Jwt:ValidForMinutes"])),
+                Audience = audience,
+                Issuer = issuer,
+                SigningCredentials = credentials
+            };
 
-        return new AuthToken
-        {
-            Message = "Successful Log in",
-            Token = accessToken,
-            TokenType = "Bearer",
-            ExpiresIn = (long)TimeSpan.FromMinutes(_tokenSettings.ValidForMinutes).TotalSeconds
-        };
+
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            return jwtTokenHandler.WriteToken(token);
+        });
     }
 }

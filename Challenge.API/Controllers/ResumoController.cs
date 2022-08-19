@@ -1,10 +1,12 @@
 ﻿using Challenge.Services.Utilities;
 using Challenge.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Challenge.API.Controllers;
 
 [ApiController]
+[Authorize]
 public class ResumoController : Controller
 {
     private readonly IResumoService _resumoService;
